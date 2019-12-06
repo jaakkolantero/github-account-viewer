@@ -22,19 +22,16 @@ const Index = () => {
 
   return (
     <>
-      <Container>
-        <Content>
-          <div className="flex flex-col items-center">
-            <Header />
-            <Search
-              onSearchSubmit={searchSubmitHandler}
-              onSearchChange={searchChangeHandler}
-              search={search}
-            />
-          </div>
-        </Content>
-      </Container>
-      <Footer />
+      <Content>
+        <div className="flex flex-col items-center">
+          <Header />
+          <Search
+            onSearchSubmit={searchSubmitHandler}
+            onSearchChange={searchChangeHandler}
+            search={search}
+          />
+        </div>
+      </Content>
     </>
   );
 };
