@@ -1,6 +1,12 @@
 import React from "react";
 
-const Search = ({ onSearchSubmit, onSearchChange, search }) => {
+interface SearchProps {
+  onSearchSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  onSearchChange: React.FormEventHandler<HTMLInputElement>;
+  search: string;
+}
+
+const Search = ({ onSearchSubmit, onSearchChange, search }: SearchProps) => {
   return (
     <div>
       <form onSubmit={onSearchSubmit} className="w-full max-w-md mt-6">

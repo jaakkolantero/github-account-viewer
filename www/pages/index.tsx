@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Index/Header";
 import Search from "../components/Index/Search";
 import Footer from "../components/Footer";
 import Content from "../components/Content";
 import Container from "../components/Container";
+import { useRouter } from "next/router";
 
 const Index = () => {
   const [search, setSearch] = useState("");
-  const searchSubmitHandler = event => {
+  const router = useRouter();
+
+  const searchSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("searh", search);
+    router.push(`/u/${search}`);
   };
 
-  const searchChangeHandler = event => {
+  const searchChangeHandler: React.ChangeEventHandler<HTMLInputElement> = event => {
     event.preventDefault();
     setSearch(event.target.value);
   };

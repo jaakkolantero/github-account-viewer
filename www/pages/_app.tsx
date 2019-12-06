@@ -2,7 +2,6 @@ import React from "react";
 import App from "next/app";
 import Head from "next/head";
 import "../styles/index.css";
-
 export interface LayoutProps {
   children: React.ReactNode;
 }
