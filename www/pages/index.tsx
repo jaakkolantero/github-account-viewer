@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Index/Header";
 import Search from "../components/Index/Search";
-import Footer from "../components/Footer";
 import Content from "../components/Content";
-import Container from "../components/Container";
 import { useRouter } from "next/router";
 
 const Index = () => {
@@ -25,6 +23,7 @@ const Index = () => {
       <Content>
         <div className="flex flex-col items-center">
           <Header />
+          <div className="mt-6" />
           <Search
             onSearchSubmit={searchSubmitHandler}
             onSearchChange={searchChangeHandler}

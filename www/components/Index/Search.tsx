@@ -9,7 +9,7 @@ interface SearchProps {
 const Search = ({ onSearchSubmit, onSearchChange, search }: SearchProps) => {
   return (
     <div>
-      <form onSubmit={onSearchSubmit} className="w-full max-w-md mt-6">
+      <form onSubmit={onSearchSubmit} className="w-full max-w-md">
         <div className="flex items-center bg-gray-200 rounded-lg overflow-hidden">
           <input
             value={search}
