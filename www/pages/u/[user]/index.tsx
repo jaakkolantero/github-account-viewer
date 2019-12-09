@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, memo, useEffect } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { fetch } from "../../../utils/fetch";
@@ -11,11 +11,22 @@ const UserDetail = () => {
 
   const router = useRouter();
   const { user } = router.query;
-  const { data: userData, error: userError } = useSWR(`/api/u/${user}`, fetch);
-  const { data: repoData, error: repoError } = useSWR(
-    () => `/api/u/${user}/repos`,
+  const memoizedUser = useMemo(() => ({ user }), [user]);
+  const { data: userData, error: userError } = useSWR(
+    [`/api/u/${user}`, memoizedUser],
     fetch
   );
+  const { data: repoData, error: repoError } = useSWR(
+    [`/api/u/${user}/repos`, memoizedUser],
+    fetch
+  );
+
+  useEffect(() => {
+    console.log("userData", userData);
+    console.log("repoData", repoData);
+    console.log("userError", userError);
+    console.log("repoError", repoError);
+  }, [userData, repoData]);
 
   const searchSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,10 +39,9 @@ const UserDetail = () => {
   };
 
   if (userError || repoError) return <div>error!</div>;
-  if (!userData) return <div>Loading...</div>;
-  if (!userData.login) return <div>{`User "${user}" not found`}</div>;
-  if (!repoData) return <div>Loading...</div>;
-  if (!repoData.length) return <div>{`No repositories`}</div>;
+  if (!userData || !repoData) return <div>Loading...</div>;
+  if (userData.message) return <div>{userData.message}</div>;
+  if (repoData.message) return <div>{repoData.message}</div>;
 
   return (
     <>

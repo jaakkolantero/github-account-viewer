@@ -3,6 +3,7 @@ import React from "react";
 interface UserCardProps {
   user: {
     name: string;
+    html_url: string;
     login: string;
     avatar_url: string;
     public_repos: number;
@@ -18,16 +19,13 @@ const UserCard = ({ user }: UserCardProps) => {
         {user.avatar_url ? (
           <img
             className="w-24 h-24 rounded-full mr-4 object-fill"
-            src="https://avatars0.githubusercontent.com/u/11708018?s=460&v=4"
+            src={user.avatar_url}
             alt="user avatar"
           />
         ) : null}
 
         <div className="text-gray-900 font-bold text-xl">{user.name}</div>
-        <a
-          className="text-blue-700 text-sm"
-          href="https://github.com/jaakkolantero"
-        >
+        <a className="text-blue-700 text-sm" href={user.html_url}>
           @{user.login}
         </a>
       </div>

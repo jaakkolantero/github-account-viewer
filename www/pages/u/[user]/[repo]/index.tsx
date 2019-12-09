@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import useSWR from "swr";
@@ -8,24 +8,20 @@ import { humanizeGithubDate } from "../../../../utils/humanize";
 const RepoDetail = () => {
   const router = useRouter();
   const { user, repo } = router.query;
+  const memoizedParams = useMemo(() => ({ user, repo }), [user, repo]);
   const { data: repoData, error: repoError } = useSWR(
-    () => `/api/u/${user}/${repo}`,
+    [`/api/u/${user}/${repo}`, memoizedParams],
     fetch
   );
   const { data: commits, error: commitsError } = useSWR(
-    () => `/api/u/${user}/${repo}/commits`,
+    [`/api/u/${user}/${repo}/commits`, memoizedParams],
     fetch
   );
 
-  useEffect(() => {
-    console.log("useEffect");
-    console.log("repoData", repoData);
-    console.log("repoError", repoError);
-    console.log("commits", commits);
-  }, [repoData, repoError, commits]);
+  if (commitsError || repoError) return <div>error!</div>;
   if (!repoData || !commits) return <div>Loading...</div>;
-  if (!repoData.id) return <div>Repository not found</div>;
-  if (!commits[0].sha) return <div>No commits</div>;
+  if (commits.message) return <div>{commits.message}</div>;
+  if (repoData.message) return <div>{repoData.message}</div>;
   return (
     <>
       <div className="max-w-lg mt-3">
@@ -53,11 +49,14 @@ const RepoDetail = () => {
                 {commit.commit.message}
               </a>
               <div className="flex">
-                <img
-                  className="w-6 h-6 rounded-full mr-1 object-fill"
-                  src="https://avatars0.githubusercontent.com/u/11708018?s=460&v=4"
-                  alt="user avatar"
-                />
+                {commit.committer.avatar_url ? (
+                  <img
+                    className="w-6 h-6 rounded-full mr-1 object-fill"
+                    src={commit.committer.avatar_url}
+                    alt="user avatar"
+                  />
+                ) : null}
+
                 <div className="mr-4 text-gray-900 text-base">
                   {commit.commit.committer.name}
                 </div>

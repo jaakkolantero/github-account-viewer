@@ -7,7 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } = req;
 
   const githubUserResponse = await fetch(
-    `https://api.github.com/users/${user}`
+    `https://api.github.com/users/${user}/repos`
   );
   const githubUser = await githubUserResponse.json();
 

@@ -3,11 +3,11 @@ import fetch from "isomorphic-unfetch";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const {
-    query: { user },
+    query: { user, repo },
   } = req;
 
   const githubUserResponse = await fetch(
-    `https://api.github.com/users/${user}`
+    `https://api.github.com/repos/${user}/${repo}`
   );
   const githubUser = await githubUserResponse.json();
 
