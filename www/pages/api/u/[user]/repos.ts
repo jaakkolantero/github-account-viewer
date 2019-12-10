@@ -6,14 +6,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     query: { user },
   } = req;
 
-  const githubUserResponse = await fetch(
-    `https://api.github.com/users/${user}/repos`
-  );
+  const url =
+    process.env.CLIENT_ID && process.env.CLIENT_SECRET
+      ? `https://api.github.com/users/${user}/repos?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`
+      : `https://api.github.com/users/${user}/repos`;
+
+  const githubUserResponse = await fetch(url);
   const githubUser = await githubUserResponse.json();
 
-  if (githubUserResponse.status === 403) {
-    res.status(403).json({ message: "API rate limit exceeded" });
-  }
-
-  res.status(200).json(githubUser);
+  res.status(githubUserResponse.status).json(githubUser);
 };

@@ -11,9 +11,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   );
   const githubUser = await githubUserResponse.json();
 
-  if (githubUserResponse.status === 403) {
-    res.status(403).json({ message: "API rate limit exceeded" });
-  }
-
-  res.status(200).json(githubUser);
+  res.status(githubUserResponse.status).json(githubUser);
 };
