@@ -1,4 +1,4 @@
-import { useState, useMemo, memo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { fetch } from "../../../utils/fetch";
@@ -20,13 +20,6 @@ const UserDetail = () => {
     [`/api/u/${user}/repos`, memoizedUser],
     fetch
   );
-
-  useEffect(() => {
-    console.log("userData", userData);
-    console.log("repoData", repoData);
-    console.log("userError", userError);
-    console.log("repoError", repoError);
-  }, [userData, repoData]);
 
   const searchSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
