@@ -38,10 +38,9 @@ const UserDetail = () => {
     setSearch(event.target.value);
   };
 
-  if (userError || repoError) return <div>error!</div>;
+  if (userError) return <div>{userError.toString()}</div>;
+  if (repoError) return <div>{repoError.toString()}</div>;
   if (!userData || !repoData) return <div>Loading...</div>;
-  if (userData.message) return <div>{userData.message}</div>;
-  if (repoData.message) return <div>{repoData.message}</div>;
 
   return (
     <>

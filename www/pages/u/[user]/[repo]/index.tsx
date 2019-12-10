@@ -1,9 +1,9 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import useSWR from "swr";
 import { fetch } from "../../../../utils/fetch";
-import { humanizeGithubDate } from "../../../../utils/humanize";
+import CommitList from "../../../../components/RepoDetail/CommitList";
 
 const RepoDetail = () => {
   const router = useRouter();
@@ -18,10 +18,9 @@ const RepoDetail = () => {
     fetch
   );
 
-  if (commitsError || repoError) return <div>error!</div>;
+  if (commitsError) return <div>{commitsError.toString()}</div>;
+  if (repoError) return <div>{repoError.toString()}</div>;
   if (!repoData || !commits) return <div>Loading...</div>;
-  if (commits.message) return <div>{commits.message}</div>;
-  if (repoData.message) return <div>{repoData.message}</div>;
   return (
     <>
       <div className="max-w-lg mt-3">
@@ -39,35 +38,7 @@ const RepoDetail = () => {
           </div>
         </div>
         <hr className="mx-4 mb-6" />
-        {commits.map((commit: any) => (
-          <div key={commit.sha} className="hover:bg-gray-200">
-            <div className="flex flex-col flex-shrink-0 px-4 py-2">
-              <a
-                href={commit.html_url}
-                className="font-bold text-base text-blue-700 hover:underline"
-              >
-                {commit.commit.message}
-              </a>
-              <div className="flex">
-                {commit.committer.avatar_url ? (
-                  <img
-                    className="w-6 h-6 rounded-full mr-1 object-fill"
-                    src={commit.committer.avatar_url}
-                    alt="user avatar"
-                  />
-                ) : null}
-
-                <div className="mr-4 text-gray-900 text-base">
-                  {commit.commit.committer.name}
-                </div>
-                <div className="text-gray-700 text-sm">
-                  {humanizeGithubDate(commit.commit.author.date)} ago
-                </div>
-              </div>
-            </div>
-            <hr className="mx-4" />
-          </div>
-        ))}
+        <CommitList commits={commits} />
       </div>
     </>
   );
