@@ -3,7 +3,6 @@ import App from "next/app";
 import Head from "next/head";
 import "../styles/index.css";
 import Container from "../components/Container";
-import Content from "../components/Content";
 import Footer from "../components/Footer";
 export interface LayoutProps {
   children: React.ReactNode;
