@@ -1,20 +1,21 @@
-# Vincit esitehtävä: mobiili
+# Github-account-viewer
 
-Hei,
+## Getting started
 
-Suunnittele ja toteuta valitsemillasi mobiiliteknologioilla sovellus, joka Githubin avointa APIa (https://developer.github.com/v3/) hyödyntäen visualisoi käyttäjän X tilin alta löytyvät repositoryt seuraavasti:
+```
+cd www
+npm install
+npm run dev
+```
 
-* Sovelluksen oletusnäkymässä voi syöttää käyttäjän X Github-tunnuksen (esimerkiksi Vincit), ja näkymässä listataan kaikki X:n repositoryjen nimet
-* Repositoryn nimeä napauttamalla sovellus siirtyy uuteen näkymään, jossa esitetään kyseisen repositoryn commit-historiaa
-    * Maksimissaan 10 viimeisintä committia
-    * Kustakin commitista: Authorin nimi, avatar-kuva (jos on), ajankohta (author date) ja commit-viesti
+If you want to increase your rate limit create and add Github OAuth App Client ID and secret to [.env](.example.env)
 
-Kiinnitä huomioita koodin luettavuuteen ja ylläpidettävyyteen! Huomioi, että tämän esitehtävän perusteella päätetään, että tarjotaanko töitä vai ei, joten panosta työn laatuun.
+Live demo running at [https://github-account-viewer.ufo-x.now.sh](https://github-account-viewer.ufo-x.now.sh)
 
-Palauta valmis työ 2 viikon kuluessa haluamallasi tavalla (esimerkiksi jaettu git-repository, sähköpostin liitetiedosto...). 
+## My thoughts after project
 
-Mikäli aika ei jostain syystä riitä, pyydä lisäaikaa.
+[Retro](RETRO.md)
 
-Jos kysyttävää ilmenee, laita viestiä!
+## Assignment
 
-Mukavaa koodailua.
+[assignment](ASSIGNMENT.md)
