@@ -8,7 +8,7 @@ const RepositoryList = ({ repos }: any) => {
     )
     .reverse();
   return (
-    <div className="w-full py-4 px-4 flex flex-col">
+    <div className="w-full py-4 flex flex-col">
       {sortedRepos.map((repo: any) => (
         <div key={repo.id} className="hover:bg-gray-200">
           <div className="flex flex-col flex-shrink-0 px-4 py-2">
