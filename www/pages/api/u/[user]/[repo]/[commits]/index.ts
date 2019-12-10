@@ -6,10 +6,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     query: { user, repo },
   } = req;
 
-  const githubUserResponse = await fetch(
+  const commitsResponse = await fetch(
     `https://api.github.com/repos/${user}/${repo}/commits`
   );
-  const githubUser = await githubUserResponse.json();
+  const commits = await commitsResponse.json();
 
-  res.status(githubUserResponse.status).json(githubUser);
+  const latestCommits = commits.slice(0, 10);
+
+  res.status(commitsResponse.status).json(latestCommits);
 };
